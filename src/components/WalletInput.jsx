@@ -1,17 +1,24 @@
-// WalletInput.jsx
 import { useState } from 'react';
+/* import { ethers } from 'ethers'; */
+import { isAddress } from 'ethers';
 
 const WalletInput = ({ onAddWallet }) => {
   const [wallet, setWallet] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (wallet) {
-      onAddWallet(wallet);
-      setWallet(''); // Reset the input field after submission
+      if (isAddress(wallet)) {
+        onAddWallet(wallet);
+        setWallet(''); // Eingabefeld zurücksetzen
+        setError('');  // Fehler zurücksetzen
+      } else {
+        setError('Invalid Ethereum address');
+      }
     }
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <input 
@@ -21,6 +28,7 @@ const WalletInput = ({ onAddWallet }) => {
         placeholder="Enter Ethereum Wallet Address" 
       />
       <button type="submit">Add Wallet</button>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </form>
   );
 };

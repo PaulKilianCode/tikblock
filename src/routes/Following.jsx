@@ -1,33 +1,16 @@
 import { useState } from 'react';
-import { ethers } from 'ethers';
 import WalletInput from '../components/WalletInput';
 import WalletList from '../components/WalletList';
 
-
 const Following = () => {
   const [wallets, setWallets] = useState([]);
-  const [error, setError] = useState('');
 
-  const validateWallet = async (wallet) => {
-    try {
-      // Prüfe, ob die eingegebene Wallet-Adresse gültig ist
-      if (ethers.utils.isAddress(wallet)) {
-        return true;
-      } else {
-        throw new Error('Invalid Ethereum address');
-      }
-    } catch (error) {
-      setError(error.message);
-      return false;
-    }
-  };
-
-  const addWallet = async (newWallet) => {
-    // Prüfe zuerst die Wallet-Validität mit der Ethereum API (ethers.js)
-    const isValid = await validateWallet(newWallet);
-    if (isValid && !wallets.includes(newWallet)) {
+  const addWallet = (newWallet) => {
+    if (!wallets.includes(newWallet)) {
       setWallets([...wallets, newWallet]);
-      setError(''); // Reset any errors
+    } else {
+      // Optional: Du kannst hier eine Meldung hinzufügen, wenn die Wallet bereits vorhanden ist
+      alert('Wallet is already followed');
     }
   };
 
@@ -38,7 +21,6 @@ const Following = () => {
   return (
     <div>
       <h2>Followed Wallets</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <WalletInput onAddWallet={addWallet} />
       <WalletList wallets={wallets} onRemoveWallet={removeWallet} />
     </div>
