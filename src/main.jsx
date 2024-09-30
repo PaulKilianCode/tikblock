@@ -6,7 +6,7 @@ import { WalletsProvider } from  './components/WalletsContext';
 import TikBlock from './routes/TikBlock';
 import ErrorPage from './routes/ErrorPage';
 import Following from './routes/Following';
-import './index.css'; // Importiere die Tailwind CSS-Datei
+import './index.css'; // Importiere die Tailwind CSS-Datein
 
 const router = createBrowserRouter([
   {
