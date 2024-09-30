@@ -2,10 +2,11 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WalletsProvider } from  './components/WalletsContext' // Passe den Pfad an
+import { WalletsProvider } from  './components/WalletsContext';
 import TikBlock from './routes/TikBlock';
 import ErrorPage from './routes/ErrorPage';
 import Following from './routes/Following';
+import './index.css'; // Importiere die Tailwind CSS-Datei
 
 const router = createBrowserRouter([
   {
